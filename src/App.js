@@ -1,25 +1,22 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import NewToDo from './components/NewToDo';
+import ToDoList from './components/ToDoList';
+import { fetchTodos } from './store/ToDoSlice';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default function App() {
+    const dispatch = useDispatch();
 
-export default App;
+    useEffect(() => {
+        dispatch(fetchTodos());
+    }, [dispatch]);
+
+    return (
+        <div className="todo-wrapper">
+            <h1>ToDo List</h1>
+            <ToDoList />
+            <NewToDo />
+        </div>
+    );
+}
